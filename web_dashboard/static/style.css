@@ -1,0 +1,125 @@
+/* web_dashboard/static/style.css */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #e0f2f7; /* Light blue background */
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 960px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2, h3 {
+    color: #0056b3; /* Darker blue for headings */
+    border-bottom: 1px solid #cceeff;
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+}
+
+h2 {
+    font-size: 1.8em;
+}
+
+h3 {
+    font-size: 1.4em;
+    margin-top: 20px;
+}
+
+p {
+    margin-bottom: 10px;
+}
+
+.section {
+    background-color: #f0f8ff; /* Very light blue for sections */
+    border: 1px solid #b3e5fc; /* Light blue border */
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #004085; /* Dark blue for labels */
+}
+
+input[type="text"] {
+    width: calc(100% - 24px); /* Account for padding */
+    padding: 12px;
+    margin-bottom: 18px;
+    border: 1px solid #a7d9f7; /* Light blue border for inputs */
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+button {
+    background-color: #007bff; /* Primary blue button */
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.status-message {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 5px;
+    background-color: #e9ecef; /* Light grey background */
+    border: 1px solid #ced4da; /* Grey border */
+    font-weight: bold;
+}
+
+.status-message.success {
+    background-color: #d4edda; /* Light green */
+    color: #155724; /* Dark green text */
+    border-color: #c3e6cb;
+}
+
+.status-message.error {
+    background-color: #f8d7da; /* Light red */
+    color: #721c24; /* Dark red text */
+    border-color: #f5c6cb;
+}
+
+.status-message.info {
+    background-color: #d1ecf1; /* Light cyan */
+    color: #0c5460; /* Dark cyan text */
+    border-color: #bee5eb;
+}
+
+ul {
+    list-style-type: disc;
+    margin-left: 25px;
+    padding-left: 0;
+}
+
+li {
+    margin-bottom: 8px;
+}
+
+small {
+    color: #666;
+    font-size: 0.85em;
+}

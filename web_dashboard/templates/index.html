@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Network Penetrator Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>AI Network Penetrator Dashboard</h1>
+        <p>This project aims to develop an AI-assisted penetration testing tool designed to analyze and secure networks.</p>
+        <p>It is envisioned as a government-grade system that can identify vulnerabilities, analyze threats, and recommend solutions to strengthen network security.</p>
+
+        <div class="section">
+            <h2>Perform a Network Scan</h2>
+            <form id="scan-form">
+                <label for="target_ip">Target IP/Hostname:</label>
+                <input type="text" id="target_ip" name="target_ip" value="127.0.0.1" required>
+                <br>
+                <label for="ports_to_scan">Ports to Scan (comma-separated, e.g., 22,80,443):</label>
+                <input type="text" id="ports_to_scan" name="ports_to_scan" value="21,22,23,80,443,8080">
+                <br>
+                <button type="submit">Start Scan</button>
+            </form>
+            <div id="scan-status" class="status-message"></div>
+        </div>
+
+        <div class="section">
+            <h2>Latest Scan Results</h2>
+            <div id="latest-scan-results">
+                {% if latest_scan %}
+                    <p><strong>Scan ID:</strong> {{ latest_scan.scan_id }}</p>
+                    <p><strong>Target IP:</strong> {{ latest_scan.target_ip }}</p>
+                    <p><strong>Timestamp:</strong> {{ latest_scan.timestamp }}</p>
+                    <p><strong>Open Ports:</strong>
+                        {% if latest_scan.open_ports %}
+                            {{ latest_scan.open_ports | join(', ') }}
+                        {% else %}
+                            None found from scanned list.
+                        {% endif %}
+                    </p>
+                    <p><strong>Checked Ports Count:</strong> {{ latest_scan.open_ports | length + latest_scan.closed_ports | length }}</p>
+                {% else %}
+                    <p>No scan results available yet. Perform a scan above.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>AI Threat Analysis & Recommendations</h2>
+            <div id="ai-analysis-results">
+                {% if analysis.vulnerabilities %}
+                    <p><strong>AI Status:</strong> {{ analysis.ai_status }}</p>
+                    <h3>Potential Vulnerabilities:</h3>
+                    <ul>
+                        {% for vuln in analysis.vulnerabilities %}
+                            <li>{{ vuln }}</li>
+                        {% endfor %}
+                    </ul>
+                    <h3>Recommendations:</h3>
+                    <ul>
+                        {% for rec in analysis.recommendations %}
+                            <li>{{ rec }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No analysis results available or no vulnerabilities detected in the latest scan.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Previous Scans</h2>
+            <div id="previous-scans-list">
+                {% if all_scans %}
+                    <ul>
+                        {% for scan in all_scans %}
+                            <li>
+                                <strong>Scan ID:</strong> {{ scan.scan_id }} |
+                                <strong>Target:</strong> {{ scan.target_ip }} |
+                                <strong>Open Ports:</strong> {{ scan.open_ports | join(', ') if scan.open_ports else 'None' }}
+                                <br><small>({{ scan.timestamp }})</small>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No previous scans found.</p>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // JavaScript for handling form submission and dynamic updates
+
+        // Add an event listener to the scan form to intercept its submission
+        document.getElementById('scan-form').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent the browser's default form submission (which would reload the page)
+
+            const targetIp = document.getElementById('target_ip').value;
+            const portsToScan = document.getElementById('ports_to_scan').value;
+            const statusDiv = document.getElementById('scan-status');
+
+            // Show a "Scanning..." message to the user
+            statusDiv.textContent = 'Starting scan... This may take a moment.';
+            statusDiv.style.color = 'orange';
+
+            try {
+                // Send a POST request to the Flask '/scan' endpoint
+                const response = await fetch('/scan', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded', // Required for form data
+                    },
+                    // Encode form data into a URL-encoded string
+                    body: `target_ip=${encodeURIComponent(targetIp)}&ports_to_scan=${encodeURIComponent(portsToScan)}`
+                });
+
+                const data = await response.json(); // Parse the JSON response from the server
+
+                if (data.status === 'success') {
+                    statusDiv.textContent = 'Scan completed and results updated!';
+                    statusDiv.style.color = 'green';
+                    // After a successful scan, fetch and display the latest data
+                    fetchLatestData();
+                } else {
+                    // Display error message if the server returned an error status
+                    statusDiv.textContent = `Error: ${data.message}`;
+                    statusDiv.style.color = 'red';
+                }
+            } catch (error) {
+                // Catch any network or parsing errors
+                console.error('Error during scan request:', error);
+                statusDiv.textContent = 'An unexpected error occurred while communicating with the server.';
+                statusDiv.style.color = 'red';
+            }
+        });
+
+        // Function to fetch and update all dashboard data
+        async function fetchLatestData() {
+            try {
+                // Send a GET request to the Flask '/get_latest_data' API endpoint
+                const response = await fetch('/get_latest_data');
+                const data = await response.json(); // Parse the JSON response
+
+                // Get references to the HTML elements that will display the data
+                const latestScanDiv = document.getElementById('latest-scan-results');
+                const aiAnalysisDiv = document.getElementById('ai-analysis-results');
+                const previousScansDiv = document.getElementById('previous-scans-list');
+
+                // --- Update Latest Scan Results Section ---
+                if (data.latest_scan) {
+                    latestScanDiv.innerHTML = `
+                        <p><strong>Scan ID:</strong> ${data.latest_scan.scan_id}</p>
+                        <p><strong>Target IP:</strong> ${data.latest_scan.target_ip}</p>
+                        <p><strong>Timestamp:</strong> ${data.latest_scan.timestamp}</p>
+                        <p><strong>Open Ports:</strong> ${data.latest_scan.open_ports ? data.latest_scan.open_ports.join(', ') : 'None found from scanned list.'}</p>
+                        <p><strong>Checked Ports Count:</strong> ${data.latest_scan.open_ports.length + data.latest_scan.closed_ports.length}</p>
+                    `;
+                } else {
+                    latestScanDiv.innerHTML = '<p>No scan results available yet. Perform a scan above.</p>';
+                }
+
+                // --- Update AI Analysis Section ---
+                if (data.analysis && data.analysis.vulnerabilities.length > 0) {
+                    let vulnerabilitiesHtml = '<h3>Potential Vulnerabilities:</h3><ul>';
+                    data.analysis.vulnerabilities.forEach(v => {
+                        vulnerabilitiesHtml += `<li>${v}</li>`;
+                    });
+                    vulnerabilitiesHtml += '</ul>';
+
+                    let recommendationsHtml = '<h3>Recommendations:</h3><ul>';
+                    data.analysis.recommendations.forEach(r => {
+                        recommendationsHtml += `<li>${r}</li>`;
+                    });
+                    recommendationsHtml += '</ul>';
+
+                    aiAnalysisDiv.innerHTML = `
+                        <p><strong>AI Status:</strong> ${data.analysis.ai_status}</p>
+                        ${vulnerabilitiesHtml}
+                        ${recommendationsHtml}
+                    `;
+                } else {
+                    aiAnalysisDiv.innerHTML = '<p>No analysis results available or no vulnerabilities detected in the latest scan.</p>';
+                }
+
+                // --- Update Previous Scans Section ---
+                if (data.all_scans && data.all_scans.length > 0) {
+                    let prevScansHtml = '<ul>';
+                    data.all_scans.forEach(scan => {
+                        prevScansHtml += `
+                            <li>
+                                <strong>Scan ID:</strong> ${scan.scan_id} |
+                                <strong>Target:</strong> ${scan.target_ip} |
+                                <strong>Open Ports:</strong> ${scan.open_ports ? scan.open_ports.join(', ') : 'None'}
+                                <br><small>(${scan.timestamp})</small>
+                            </li>
+                        `;
+                    });
+                    prevScansHtml += '</ul>';
+                    previousScansDiv.innerHTML = prevScansHtml;
+                } else {
+                    previousScansDiv.innerHTML = '<p>No previous scans found.</p>';
+                }
+
+            } catch (error) {
+                console.error('Error fetching latest data:', error);
+                // Optionally display an error message on the dashboard if data fetch fails
+                document.getElementById('scan-status').textContent = 'Error loading latest data.';
+                document.getElementById('scan-status').style.color = 'red';
+            }
+        }
+
+        // Call fetchLatestData when the entire HTML document has been loaded
+        document.addEventListener('DOMContentLoaded', fetchLatestData);
+    </script>
+</body>
+</html>
