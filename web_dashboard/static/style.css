@@ -1,125 +1,180 @@
 /* web_dashboard/static/style.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@400;600;700&display=swap');
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', sans-serif;
     margin: 0;
-    padding: 20px;
-    background-color: #e0f2f7; /* Light blue background */
+    padding: 0;
+    background: linear-gradient(135deg, #e0f7fa 0%, #c8e6c9 100%); /* Soft gradient background */
     color: #333;
     line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .container {
-    max-width: 960px;
-    margin: 20px auto;
+    max-width: 1000px;
+    margin: 30px auto;
     background-color: #ffffff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    border-radius: 15px; /* More rounded corners */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Stronger shadow for impact */
+    flex-grow: 1;
 }
 
-h1, h2, h3 {
+header {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Montserrat', sans-serif;
     color: #0056b3; /* Darker blue for headings */
-    border-bottom: 1px solid #cceeff;
-    padding-bottom: 10px;
-    margin-bottom: 25px;
+    border-bottom: none; /* Remove default border */
+    padding-bottom: 0;
+    margin-bottom: 15px;
 }
 
 h1 {
-    text-align: center;
-    font-size: 2.5em;
-    margin-bottom: 30px;
+    font-size: 2.8em;
+    font-weight: 700;
+    color: #007bff; /* Primary blue */
 }
 
-h2 {
-    font-size: 1.8em;
+.lead {
+    font-size: 1.25rem;
+    font-weight: 300;
 }
 
-h3 {
-    font-size: 1.4em;
-    margin-top: 20px;
+.card {
+    border: none; /* Remove default card border */
+    border-radius: 10px;
+    overflow: hidden; /* Ensure rounded corners clip content */
 }
 
-p {
-    margin-bottom: 10px;
-}
-
-.section {
-    background-color: #f0f8ff; /* Very light blue for sections */
-    border: 1px solid #b3e5fc; /* Light blue border */
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 25px;
-}
-
-label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #004085; /* Dark blue for labels */
-}
-
-input[type="text"] {
-    width: calc(100% - 24px); /* Account for padding */
-    padding: 12px;
-    margin-bottom: 18px;
-    border: 1px solid #a7d9f7; /* Light blue border for inputs */
-    border-radius: 5px;
-    font-size: 1em;
-}
-
-button {
-    background-color: #007bff; /* Primary blue button */
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.card-header {
+    padding: 1rem 1.5rem;
+    border-bottom: none;
+    font-weight: 600;
     font-size: 1.1em;
-    transition: background-color 0.3s ease;
+    border-radius: 10px 10px 0 0; /* Apply border-radius only to top */
 }
 
-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+/* Custom gradient headers for cards */
+.bg-gradient-primary {
+    background: linear-gradient(45deg, #007bff, #0056b3);
+}
+.bg-gradient-info {
+    background: linear-gradient(45deg, #17a2b8, #138496);
+}
+.bg-gradient-success {
+    background: linear-gradient(45deg, #28a745, #1e7e34);
+}
+.bg-gradient-warning {
+    background: linear-gradient(45deg, #ffc107, #d39e00);
+}
+.bg-gradient-secondary {
+    background: linear-gradient(45deg, #6c757d, #5a6268);
 }
 
-.status-message {
-    margin-top: 15px;
-    padding: 12px;
-    border-radius: 5px;
-    background-color: #e9ecef; /* Light grey background */
-    border: 1px solid #ced4da; /* Grey border */
-    font-weight: bold;
+.form-control-lg {
+    padding: 0.75rem 1.25rem;
+    font-size: 1.1rem;
 }
 
-.status-message.success {
-    background-color: #d4edda; /* Light green */
-    color: #155724; /* Dark green text */
-    border-color: #c3e6cb;
+.btn-lg {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
 
-.status-message.error {
-    background-color: #f8d7da; /* Light red */
-    color: #721c24; /* Dark red text */
-    border-color: #f5c6cb;
+.btn-primary {
+    background: linear-gradient(45deg, #007bff, #0056b3);
+    border: none;
+}
+.btn-primary:hover {
+    background: linear-gradient(45deg, #0056b3, #003d80);
+    transform: translateY(-2px); /* Subtle hover effect */
 }
 
-.status-message.info {
-    background-color: #d1ecf1; /* Light cyan */
-    color: #0c5460; /* Dark cyan text */
-    border-color: #bee5eb;
+.btn-success {
+    background: linear-gradient(45deg, #28a745, #1e7e34);
+    border: none;
+}
+.btn-success:hover {
+    background: linear-gradient(45deg, #1e7e34, #155724);
+    transform: translateY(-2px);
 }
 
-ul {
-    list-style-type: disc;
-    margin-left: 25px;
-    padding-left: 0;
+.alert {
+    font-weight: 600;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-li {
-    margin-bottom: 8px;
+#loading-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px; /* Ensure spinner has space */
 }
 
-small {
-    color: #666;
-    font-size: 0.85em;
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+    border-width: 0.3em;
+}
+
+/* List group styling for better readability */
+.list-group-item {
+    border-left: 5px solid transparent; /* Subtle border for emphasis */
+    transition: border-left 0.3s ease;
+}
+
+.list-group-item:hover {
+    border-left: 5px solid #007bff; /* Highlight on hover */
+}
+
+.list-group-item-danger {
+    border-left-color: #dc3545 !important;
+}
+.list-group-item-success {
+    border-left-color: #28a745 !important;
+}
+.list-group-item-info {
+    border-left-color: #17a2b8 !important;
+}
+
+/* Chart.js canvas sizing */
+#scanChart {
+    max-height: 300px; /* Limit chart height */
+}
+
+/* Footer styling */
+footer {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    border-radius: 10px;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05);
+    margin-top: 30px;
+}
+
+/* Animate.css overrides for smoother appearance */
+.animate__animated.animate__fadeInDown,
+.animate__animated.animate__fadeInUp,
+.animate__animated.animate__fadeInLeft,
+.animate__animated.animate__fadeInRight,
+.animate__animated.animate__bounceIn {
+    --animate-duration: 0.8s;
+}
+.animate__animated.animate__pulse {
+    --animate-duration: 2s;
 }
