@@ -1,47 +1,45 @@
-# core/ai_module.py
 import json
 import os
 
+# Define the path to the JSON file where scan results are stored
 SCAN_RESULTS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../data/scan_results.json')
 
 def analyze_vulnerabilities(scan_data):
     """
     Placeholder for AI-based threat analysis.
-    For now, it simply identifies commonly vulnerable open ports.
+    For this prototype, it simply identifies commonly vulnerable open ports
+    and provides a rule-based analysis.
     """
     vulnerabilities = []
     recommendations = []
 
+    # A dictionary mapping common port numbers to a brief description of potential vulnerabilities.
+    # In a real AI system, this would be replaced by complex models trained on vast datasets.
     common_vulnerable_ports = {
-        21: "FTP (File Transfer Protocol) - often allows anonymous access or weak credentials.",
-        23: "Telnet - transmits data in plain text, highly insecure.",
-        80: "HTTP (Hypertext Transfer Protocol) - often needs HTTPS redirection, sensitive info disclosure.",
-        445: "SMB (Server Message Block) - known for WannaCry/EternalBlue vulnerabilities.",
-        3389: "RDP (Remote Desktop Protocol) - susceptible to brute-force attacks.",
-        22: "SSH (Secure Shell) - often targeted by brute-force, ensure strong credentials and key-based auth."
+        21: "FTP (File Transfer Protocol) - often allows anonymous access or weak credentials, data can be unencrypted.",
+        23: "Telnet - transmits data in plain text, highly insecure; replace with SSH.",
+        80: "HTTP (Hypertext Transfer Protocol) - unencrypted web traffic; sensitive info can be intercepted. Redirect to HTTPS.",
+        445: "SMB (Server Message Block) - known for WannaCry/EternalBlue vulnerabilities; ensure patches are applied and restrict access.",
+        3389: "RDP (Remote Desktop Protocol) - susceptible to brute-force attacks; use strong passwords, limit access, apply NLA.",
+        22: "SSH (Secure Shell) - often targeted by brute-force; ensure strong passwords, use key-based authentication, limit root access.",
+        53: "DNS (Domain Name System) - can be vulnerable to amplification attacks or cache poisoning if not properly secured."
     }
 
-    if not scan_data or "open_ports" not in scan_data:
-        return {"vulnerabilities": [], "recommendations": []}
+    if not scan_data or "scan_details" not in scan_data:
+        return {"vulnerabilities": ["No valid scan data provided for analysis."], "recommendations": []}
 
-    print(f"[AI Module] Analyzing scan results for {scan_data['target_ip']}...")
+    print(f"[AI Module] Analyzing scan results for {scan_data.get('target_ip', 'unknown IP')}...")
 
-    for port in scan_data.get("open_ports", []):
-        if port in common_vulnerable_ports:
-            vulnerability_desc = common_vulnerable_ports[port]
-            vulnerabilities.append(f"Port {port} is OPEN: {vulnerability_desc}")
-            recommendations.append(f"Secure Port {port}: Review access controls, disable unnecessary services, use stronger encryption (e.g., SSH over Telnet, HTTPS over HTTP).")
+    # Iterate through the open ports identified by the scanner
+    for host in scan_data["scan_details"]:
+        for port in scan_data["scan_details"][host]["ports"]:
+            port_info = scan_data["scan_details"][host]["ports"][port]
+            if port_info["state"] == "open" and int(port) in common_vulnerable_ports:
+                vulnerability_desc = common_vulnerable_ports[int(port)]
+                vulnerabilities.append(f"Port {port} is OPEN: {vulnerability_desc}")
+                recommendations.append(f"Secure Port {port}: Review access controls, disable unnecessary services, use stronger, encrypted alternatives (e.g., SSH over Telnet, HTTPS over HTTP).")
 
-    # In a real AI, this is where a trained model would classify traffic or identify anomalies.
-    # For example:
-    # ml_model = load_trained_model("path/to/your/model.pkl")
-    # features = extract_features_from_network_traffic(live_traffic_data)
-    # prediction = ml_model.predict(features)
-    # if prediction == "malicious":
-    #     vulnerabilities.append("AI detected anomalous traffic pattern (e.g., brute-force attempt).")
-
-
-    print(f"[AI Module] Analysis complete. Found {len(vulnerabilities)} potential vulnerabilities.")
+    print(f"[AI Module] Analysis complete. Found {len(vulnerabilities)} potential vulnerabilities based on open ports.")
     return {
         "vulnerabilities": vulnerabilities,
         "recommendations": recommendations,
@@ -50,30 +48,31 @@ def analyze_vulnerabilities(scan_data):
 
 def get_latest_analysis():
     """
-    Reads the latest scan results and performs a basic analysis.
+    Reads the latest scan results from the JSON file and performs a basic analysis.
     """
-    if os.path.exists(SCAN_RESULTS_FILE):
+    if os.path.exists(SCAN_RESULTS_FILE) and os.path.getsize(SCAN_RESULTS_FILE) > 0:
         try:
             with open(SCAN_RESULTS_FILE, 'r') as f:
                 all_scans = json.load(f)
                 if all_scans:
-                    latest_scan = all_scans[-1] # Get the most recent scan
+                    latest_scan = all_scans[-1]
                     return analyze_vulnerabilities(latest_scan)
         except json.JSONDecodeError:
-            print("[AI Module] Error: Could not decode scan results JSON.")
-    return {"vulnerabilities": ["No scan data available for analysis."], "recommendations": []}
+            print("[AI Module] Error: Could not decode scan results JSON. File might be empty or corrupt.")
+            return {"vulnerabilities": ["Error loading scan data for analysis."], "recommendations": []}
+    return {"vulnerabilities": ["No scan results file found."], "recommendations": []}
 
-
+# This block allows for direct testing
 if __name__ == "__main__":
-    # Example usage for direct testing
-    # First, ensure network_scanner.py has run at least once to create scan_results.json
-    print("Attempting to analyze latest scan results...")
-    analysis = get_latest_analysis()
+    print("Running ai_module.py directly for testing...")
+    
+    analysis_results = get_latest_analysis()
+    
     print("\n--- AI Analysis Summary ---")
-    if analysis.get("vulnerabilities"):
-        for vuln in analysis["vulnerabilities"]:
+    if analysis_results.get("vulnerabilities"):
+        for vuln in analysis_results["vulnerabilities"]:
             print(f"Vulnerability: {vuln}")
-    if analysis.get("recommendations"):
-        for rec in analysis["recommendations"]:
+    if analysis_results.get("recommendations"):
+        for rec in analysis_results["recommendations"]:
             print(f"Recommendation: {rec}")
-    print(f"AI Status: {analysis.get('ai_status', 'N/A')}")
+    print(f"AI Status: {analysis_results.get('ai_status', 'N/A')}")

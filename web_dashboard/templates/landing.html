@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome - AI Network Penetrator{% endblock %}
+
+{% block content %}
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="#">💾 AI Network Penetrator</a>
+        <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#authModal">
+          Login / Sign Up
+        </button>
+      </div>
+    </nav>
+
+    <div class="container text-center" style="padding: 100px 0;">
+      <h1 class="display-4 fw-bold">AI-Powered Network Security Scanner</h1>
+      <p class="lead col-md-8 mx-auto">
+        Intelligently identify vulnerabilities, analyze scan results, and secure your network with our advanced penetration testing tool.
+      </p>
+      <button class="btn btn-primary btn-lg mt-3" data-bs-toggle="modal" data-bs-target="#authModal">
+        Get Started
+      </button>
+    </div>
+
+    <div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Welcome</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p class="text-center text-body-secondary">Sign in quickly using a provider:</p>
+            <div class="d-grid gap-2">
+              <a href="/login/google" class="btn btn-outline-secondary text-start"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" width="20" class="me-2" alt="Google Logo"> Continue with Google</a>
+              <a href="/login/microsoft" class="btn btn-outline-secondary text-start"><img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" width="20" class="me-2" alt="Microsoft Logo"> Continue with Microsoft</a>
+              <a href="/login/apple" class="btn btn-outline-secondary text-start"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" width="20" class="me-2" alt="Apple Logo"> Continue with Apple</a>
+            </div>
+            
+            <hr>
+            
+            <p class="text-center text-body-secondary">Or use your email and password</p>
+            <form action="{{ url_for('handle_login') }}" method="POST">
+              <div class="mb-3">
+                <input type="email" class="form-control" name="email" placeholder="Email address" required>
+              </div>
+              <div class="mb-3">
+                <input type="password" class="form-control" name="password" placeholder="Password" required>
+              </div>
+              <button type="submit" class="btn btn-primary w-100">Login</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

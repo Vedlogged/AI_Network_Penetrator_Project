@@ -1,108 +1,47 @@
-# web_dashboard/app.py
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_file, session, redirect, url_for, flash
 import sys
 import os
 import json
+import io
+import csv
+from datetime import datetime
+import nmap
 
-# Add the parent directory (ai_network_penetrator) to Python's system path.
-# This allows us to import modules from the 'core' package.
-# os.path.dirname(__file__) gets the directory of 'app.py' (web_dashboard)
-# os.path.abspath(os.path.join(..., '..')) goes up one level to 'ai_network_penetrator'
+# Add the parent directory to the system path to import core modules
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-# Now we can import from core modules
-from core.network_scanner import run_port_scan, SCAN_RESULTS_FILE
-from core.ai_module import get_latest_analysis
+from core.network_scanner import run_nmap_scan, SCAN_RESULTS_FILE
+from core.ai_module import get_latest_analysis, analyze_vulnerabilities
 
 app = Flask(__name__,
-            template_folder='templates', # Specify template folder explicitely
-            static_folder='static')      # Specify static folder explicitely
+            template_folder='templates',
+            static_folder='static')
+app.secret_key = 'your_secret_key_here' # IMPORTANT: Change this to a strong, random key
 
-# Ensure the 'data' directory exists for scan_results.json
-# This creates the 'data' folder if it doesn't already exist.
+# Ensure the directory for scan results exists
 os.makedirs(os.path.dirname(SCAN_RESULTS_FILE), exist_ok=True)
 
+## ----------------- CORE WEB PAGES ----------------- ##
+
 @app.route('/')
-def index():
+def landing():
     """
-    Renders the main dashboard page.
-    It attempts to load the latest scan results and AI analysis to display on load.
+    Renders the landing page.
     """
+    return render_template('landing.html')
+
+@app.route('/dashboard')
+def dashboard():
+    """
+    Renders the main dashboard page after a successful login.
+    """
+    if not session.get('logged_in'):
+        flash('You need to be logged in to view this page.', 'warning')
+        return redirect(url_for('landing'))
+
     latest_scan = None
     all_scans = []
-    
-    # Check if the scan results file exists and has content
-    if os.path.exists(SCAN_RESULTS_FILE) and os.path.getsize(SCAN_RESULTS_FILE) > 0:
-        try:
-            with open(SCAN_RESULTS_FILE, 'r') as f:
-                all_scans = json.load(f)
-                if all_scans:
-                    latest_scan = all_scans[-1] # Get the most recent scan (last item in list)
-        except json.JSONDecodeError:
-            print("[Web] Warning: scan_results.json is empty or corrupt. Starting fresh for display.")
-            all_scans = [] # Reset to empty list if file is invalid JSON
 
-    analysis = get_latest_analysis() # Get analysis for the latest scan
-
-    # Render the HTML template, passing data to it
-    return render_template('index.html',
-                           latest_scan=latest_scan,
-                           # Pass all scans, reversed to show newest first in the "Previous Scans" section
-                           all_scans=reversed(all_scans),
-                           analysis=analysis)
-
-@app.route('/scan', methods=['POST'])
-def scan_network():
-    """
-    Handles the network scan request sent from the web dashboard via AJAX.
-    It retrieves target IP and ports from the form, initiates the scan, and returns JSON.
-    """
-    target_ip = request.form.get('target_ip')
-    ports_str = request.form.get('ports_to_scan')
-
-    # Basic validation for target IP
-    if not target_ip:
-        return jsonify({"status": "error", "message": "Target IP cannot be empty!"}), 400
-
-    ports_to_scan = []
-    if ports_str:
-        try:
-            # Parse comma-separated ports, ensuring they are valid numbers
-            ports_to_scan = [int(p.strip()) for p in ports_str.split(',') if p.strip().isdigit()]
-            if not ports_to_scan: # If no valid numbers were parsed
-                 return jsonify({"status": "error", "message": "No valid ports provided. Use comma-separated numbers."}), 400
-        except ValueError:
-            return jsonify({"status": "error", "message": "Invalid port format. Use comma-separated numbers."}), 400
-    else:
-        # Default ports if no specific ports are provided in the form
-        ports_to_scan = [21, 22, 23, 80, 443, 8080] # Automated Network Vulnerability Scanning using tools like Nmap and Scapy.
-
-    # Run the port scan using the imported network_scanner function.
-    # In a real-world application, for long-running tasks like scans,
-    # you would typically offload this to a background job (e.g., using Celery with Redis/RabbitMQ)
-    # to keep the web server responsive. For this prototype, it runs synchronously.
-    scan_results = run_port_scan(target_ip, ports_to_scan) # This directly saves to JSON file.
-
-    # After scanning, re-run the AI analysis to get updated insights based on the new scan.
-    analysis = get_latest_analysis()
-
-    # Return a JSON response indicating success and providing latest data
-    return jsonify({
-        "status": "success",
-        "message": "Scan completed. Dashboard will update.",
-        "scan_results": scan_results, # Return the specific scan results
-        "analysis": analysis         # Return the latest analysis results
-    })
-
-@app.route('/get_latest_data', methods=['GET'])
-def get_latest_data_api():
-    """
-    API endpoint to fetch the latest scan and analysis data.
-    This is called by the JavaScript on the frontend to update the dashboard dynamically.
-    """
-    latest_scan = None
-    all_scans = []
-    
     if os.path.exists(SCAN_RESULTS_FILE) and os.path.getsize(SCAN_RESULTS_FILE) > 0:
         try:
             with open(SCAN_RESULTS_FILE, 'r') as f:
@@ -110,22 +49,171 @@ def get_latest_data_api():
                 if all_scans:
                     latest_scan = all_scans[-1]
         except json.JSONDecodeError:
-            print("[Web] Error: Could not decode scan_results.json for API. File might be empty or corrupt.")
+            print("[Web] Warning: scan_results.json is empty or corrupt.")
             all_scans = []
 
-    analysis = get_latest_analysis() # Get latest analysis based on the data in the JSON file
+    analysis = analyze_vulnerabilities(latest_scan) if latest_scan else get_latest_analysis()
 
-    # Return data as JSON
+    return render_template('dashboard.html',
+                           latest_scan=latest_scan,
+                           all_scans=reversed(all_scans),
+                           analysis=analysis)
+
+## ----------------- AUTHENTICATION ----------------- ##
+
+@app.route('/login', methods=['POST'])
+def handle_login():
+    """
+    Handles the login form submission from the landing page modal.
+    """
+    email = request.form.get('email')
+    password = request.form.get('password')
+    
+    # Simple email/password check for demonstration
+    if email == 'admin@example.com' and password == 'password':
+        session['logged_in'] = True
+        session['user_email'] = email
+        flash('You have successfully logged in!', 'success')
+        return redirect(url_for('dashboard'))
+    else:
+        # If login fails, flash an error and redirect back to the landing page
+        flash('Invalid email or password. Please try again.', 'danger')
+        return redirect(url_for('landing'))
+
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    session.pop('user_email', None)
+    flash('You have been logged out.', 'info')
+    return redirect(url_for('landing'))
+
+## ----------------- API & DATA ENDPOINTS ----------------- ##
+
+@app.route('/scan', methods=['POST'])
+def scan_network():
+    if not session.get('logged_in'):
+        return jsonify({"status": "error", "message": "Unauthorized"}), 401
+    
+    target_ip = request.form.get('target_ip')
+    if not target_ip:
+        return jsonify({"status": "error", "message": "Target IP cannot be empty!"}), 400
+
+    # For simplicity, using default ports. A future feature could allow user input.
+    ports_to_scan = [21, 22, 80, 443, 8080]
+
+    scan_results = run_nmap_scan(target_ip, ports_to_scan)
+    analysis = get_latest_analysis()
+
+    return jsonify({
+        "status": "success",
+        "message": "Scan completed.",
+        "scan_results": scan_results,
+        "analysis": analysis
+    })
+
+@app.route('/get_latest_data', methods=['GET'])
+def get_latest_data_api():
+    if not session.get('logged_in'):
+        return jsonify({"status": "error", "message": "Unauthorized"}), 401
+    
+    latest_scan = None
+    all_scans = []
+
+    if os.path.exists(SCAN_RESULTS_FILE) and os.path.getsize(SCAN_RESULTS_FILE) > 0:
+        try:
+            with open(SCAN_RESULTS_FILE, 'r') as f:
+                all_scans = json.load(f)
+                if all_scans:
+                    latest_scan = all_scans[-1]
+        except json.JSONDecodeError:
+            print("[Web] Error: Could not decode scan_results.json for API.")
+            all_scans = []
+
+    analysis = get_latest_analysis()
+
     return jsonify({
         "latest_scan": latest_scan,
-        # Ensure all_scans is a list and reversed for displaying newest first
         "all_scans": list(reversed(all_scans)),
         "analysis": analysis
     })
 
+@app.route('/generate_report', methods=['GET'])
+def generate_report():
+    if not session.get('logged_in'):
+        return jsonify({"status": "error", "message": "Unauthorized"}), 401
+
+    latest_scan = None
+    if os.path.exists(SCAN_RESULTS_FILE) and os.path.getsize(SCAN_RESULTS_FILE) > 0:
+        try:
+            with open(SCAN_RESULTS_FILE, 'r') as f:
+                all_scans = json.load(f)
+                if all_scans:
+                    latest_scan = all_scans[-1]
+        except json.JSONDecodeError:
+            pass
+
+    analysis = get_latest_analysis()
+    output = io.StringIO()
+    writer = csv.writer(output)
+
+    writer.writerow(["AI Network Penetrator Scan Report"])
+    writer.writerow(["Generated On:", datetime.now().isoformat()])
+    writer.writerow([])
+
+    if latest_scan:
+        writer.writerow(["--- Latest Scan Details ---"])
+        writer.writerow(["Scan ID:", latest_scan.get("scan_id", "N/A")])
+        writer.writerow(["Target IP:", latest_scan.get("target_ip", "N/A")])
+        writer.writerow(["Timestamp:", latest_scan.get("timestamp", "N/A")])
+        writer.writerow([])
+
+        if latest_scan.get("scan_details"):
+            for host_ip, details in latest_scan["scan_details"].items():
+                writer.writerow(["Host:", host_ip])
+                writer.writerow(["Hostname:", details.get("hostname", "N/A")])
+                writer.writerow(["OS Details:", details.get("os_details", "N/A")])
+                writer.writerow(["--- Open Ports ---"])
+                writer.writerow(["Port", "State", "Service", "Version"])
+                if details.get("ports"):
+                    for port, port_info in details["ports"].items():
+                        if port_info.get("state") == "open":
+                            writer.writerow([
+                                port,
+                                port_info.get("state", "N/A"),
+                                port_info.get("name", "N/A"),
+                                port_info.get("version", "N/A")
+                            ])
+                else:
+                    writer.writerow(["No open ports found."])
+                writer.writerow([])
+        else:
+            writer.writerow(["No detailed scan information available."])
+        writer.writerow([])
+
+    if analysis and (analysis.get("vulnerabilities") or analysis.get("recommendations")):
+        writer.writerow(["--- AI Threat Analysis ---"])
+        writer.writerow(["AI Status:", analysis.get("ai_status", "N/A")])
+        writer.writerow([])
+        if analysis.get("vulnerabilities"):
+            writer.writerow(["Potential Vulnerabilities:"])
+            for vuln in analysis["vulnerabilities"]:
+                writer.writerow([vuln])
+            writer.writerow([])
+        if analysis.get("recommendations"):
+            writer.writerow(["Recommendations:"])
+            for rec in analysis["recommendations"]:
+                writer.writerow([rec])
+            writer.writerow([])
+    else:
+        writer.writerow(["No AI analysis or vulnerabilities detected."])
+
+    output.seek(0)
+    return send_file(io.BytesIO(output.getvalue().encode('utf-8')),
+                     mimetype='text/csv',
+                     as_attachment=True,
+                     download_name='scan_report.csv')
+
+## ----------------- RUN APPLICATION ----------------- ##
+
 if __name__ == '__main__':
-    # Run the Flask development server.
-    # debug=True allows for auto-reloading code changes and detailed error messages.
-    # host='0.0.0.0' makes the server accessible from other devices on your network
-    # (useful for testing on another machine), though you'll typically access via 127.0.0.1 (localhost).
-    app.run(debug=True, host='0.0.0.0', port=8000) 
+    app.run(debug=True, host='0.0.0.0', port=8000)

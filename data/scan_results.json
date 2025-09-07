@@ -96,5 +96,1555 @@
             443,
             8080
         ]
+    },
+    {
+        "scan_id": "20250808000142",
+        "target_ip": "127.0.0.1",
+        "timestamp": "2025-08-08T00:01:42.440337",
+        "open_ports": [],
+        "closed_ports": [
+            21,
+            22,
+            23,
+            80,
+            443,
+            8080
+        ]
+    },
+    {
+        "scan_id": "20250809094357",
+        "target_ip": "127.0.0.1",
+        "timestamp": "2025-08-09T09:43:57.762201",
+        "open_ports": [],
+        "closed_ports": [
+            21,
+            22,
+            23,
+            80,
+            443,
+            8080
+        ]
+    },
+    {
+        "scan_id": "20250809094519",
+        "target_ip": "127.0.0.1",
+        "timestamp": "2025-08-09T09:45:19.773245",
+        "open_ports": [],
+        "closed_ports": [
+            21,
+            22,
+            23,
+            80,
+            443,
+            8080
+        ]
+    },
+    {
+        "scan_id": "20250810131939",
+        "target_ip": "127.0.0.1",
+        "timestamp": "2025-08-10T13:19:39.771441",
+        "open_ports": [],
+        "closed_ports": [
+            21,
+            22,
+            23,
+            80,
+            443,
+            8080
+        ]
+    },
+    {
+        "scan_id": "20250810142645",
+        "target_ip": "127.0.0.1",
+        "timestamp": "2025-08-10T14:26:48.166766",
+        "scan_details": {
+            "127.0.0.1": {
+                "os_details": [],
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    },
+                    "22": {
+                        "state": "closed",
+                        "name": "ssh",
+                        "product": "",
+                        "version": ""
+                    },
+                    "23": {
+                        "state": "closed",
+                        "name": "telnet",
+                        "product": "",
+                        "version": ""
+                    },
+                    "80": {
+                        "state": "closed",
+                        "name": "http",
+                        "product": "",
+                        "version": ""
+                    },
+                    "443": {
+                        "state": "closed",
+                        "name": "https",
+                        "product": "",
+                        "version": ""
+                    },
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scan_id": "20250811183715",
+        "target_ip": "127.0.0.1",
+        "timestamp": "2025-08-11T18:37:18.787854",
+        "scan_details": {
+            "127.0.0.1": {
+                "os_details": [],
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    },
+                    "22": {
+                        "state": "closed",
+                        "name": "ssh",
+                        "product": "",
+                        "version": ""
+                    },
+                    "23": {
+                        "state": "closed",
+                        "name": "telnet",
+                        "product": "",
+                        "version": ""
+                    },
+                    "53": {
+                        "state": "closed",
+                        "name": "domain",
+                        "product": "",
+                        "version": ""
+                    },
+                    "80": {
+                        "state": "closed",
+                        "name": "http",
+                        "product": "",
+                        "version": ""
+                    },
+                    "443": {
+                        "state": "closed",
+                        "name": "https",
+                        "product": "",
+                        "version": ""
+                    },
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scan_id": "20250811185037",
+        "target_ip": "127.0.0.1",
+        "timestamp": "2025-08-11T18:50:38.537052",
+        "scan_details": {
+            "127.0.0.1": {
+                "os_details": [],
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    },
+                    "22": {
+                        "state": "closed",
+                        "name": "ssh",
+                        "product": "",
+                        "version": ""
+                    },
+                    "23": {
+                        "state": "closed",
+                        "name": "telnet",
+                        "product": "",
+                        "version": ""
+                    },
+                    "80": {
+                        "state": "closed",
+                        "name": "http",
+                        "product": "",
+                        "version": ""
+                    },
+                    "443": {
+                        "state": "closed",
+                        "name": "https",
+                        "product": "",
+                        "version": ""
+                    },
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scan_id": "20250811185255",
+        "target_ip": "127.0.0.1",
+        "timestamp": "2025-08-11T18:52:56.463443",
+        "scan_details": {
+            "127.0.0.1": {
+                "os_details": [],
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    },
+                    "22": {
+                        "state": "closed",
+                        "name": "ssh",
+                        "product": "",
+                        "version": ""
+                    },
+                    "23": {
+                        "state": "closed",
+                        "name": "telnet",
+                        "product": "",
+                        "version": ""
+                    },
+                    "80": {
+                        "state": "closed",
+                        "name": "http",
+                        "product": "",
+                        "version": ""
+                    },
+                    "443": {
+                        "state": "closed",
+                        "name": "https",
+                        "product": "",
+                        "version": ""
+                    },
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scan_id": "20250811185257",
+        "target_ip": "127.0.0.1",
+        "timestamp": "2025-08-11T18:52:58.329529",
+        "scan_details": {
+            "127.0.0.1": {
+                "os_details": [],
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    },
+                    "22": {
+                        "state": "closed",
+                        "name": "ssh",
+                        "product": "",
+                        "version": ""
+                    },
+                    "23": {
+                        "state": "closed",
+                        "name": "telnet",
+                        "product": "",
+                        "version": ""
+                    },
+                    "80": {
+                        "state": "closed",
+                        "name": "http",
+                        "product": "",
+                        "version": ""
+                    },
+                    "443": {
+                        "state": "closed",
+                        "name": "https",
+                        "product": "",
+                        "version": ""
+                    },
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scan_id": "20250811185259",
+        "target_ip": "127.0.0.1",
+        "timestamp": "2025-08-11T18:53:00.133660",
+        "scan_details": {
+            "127.0.0.1": {
+                "os_details": [],
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    },
+                    "22": {
+                        "state": "closed",
+                        "name": "ssh",
+                        "product": "",
+                        "version": ""
+                    },
+                    "23": {
+                        "state": "closed",
+                        "name": "telnet",
+                        "product": "",
+                        "version": ""
+                    },
+                    "80": {
+                        "state": "closed",
+                        "name": "http",
+                        "product": "",
+                        "version": ""
+                    },
+                    "443": {
+                        "state": "closed",
+                        "name": "https",
+                        "product": "",
+                        "version": ""
+                    },
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scan_id": "20250811185301",
+        "target_ip": "127.0.0.1",
+        "timestamp": "2025-08-11T18:53:01.843844",
+        "scan_details": {
+            "127.0.0.1": {
+                "os_details": [],
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    },
+                    "22": {
+                        "state": "closed",
+                        "name": "ssh",
+                        "product": "",
+                        "version": ""
+                    },
+                    "23": {
+                        "state": "closed",
+                        "name": "telnet",
+                        "product": "",
+                        "version": ""
+                    },
+                    "80": {
+                        "state": "closed",
+                        "name": "http",
+                        "product": "",
+                        "version": ""
+                    },
+                    "443": {
+                        "state": "closed",
+                        "name": "https",
+                        "product": "",
+                        "version": ""
+                    },
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scan_id": "20250811190445",
+        "target_ip": "127.0.0.1",
+        "timestamp": "2025-08-11T19:04:46.688670",
+        "scan_details": {
+            "127.0.0.1": {
+                "hostname": "localhost",
+                "os_details": "N/A",
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    },
+                    "22": {
+                        "state": "closed",
+                        "name": "ssh",
+                        "product": "",
+                        "version": ""
+                    },
+                    "23": {
+                        "state": "closed",
+                        "name": "telnet",
+                        "product": "",
+                        "version": ""
+                    },
+                    "80": {
+                        "state": "closed",
+                        "name": "http",
+                        "product": "",
+                        "version": ""
+                    },
+                    "443": {
+                        "state": "closed",
+                        "name": "https",
+                        "product": "",
+                        "version": ""
+                    },
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scan_id": "20250811191037",
+        "target_ip": "127.0.0.1",
+        "timestamp": "2025-08-11T19:10:38.298044",
+        "scan_details": {
+            "127.0.0.1": {
+                "hostname": "localhost",
+                "os_details": "N/A",
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    },
+                    "22": {
+                        "state": "closed",
+                        "name": "ssh",
+                        "product": "",
+                        "version": ""
+                    },
+                    "23": {
+                        "state": "closed",
+                        "name": "telnet",
+                        "product": "",
+                        "version": ""
+                    },
+                    "53": {
+                        "state": "closed",
+                        "name": "domain",
+                        "product": "",
+                        "version": ""
+                    },
+                    "80": {
+                        "state": "closed",
+                        "name": "http",
+                        "product": "",
+                        "version": ""
+                    },
+                    "443": {
+                        "state": "closed",
+                        "name": "https",
+                        "product": "",
+                        "version": ""
+                    },
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scan_id": "20250811191200",
+        "target_ip": "127.0.0.1",
+        "timestamp": "2025-08-11T19:12:01.633639",
+        "scan_details": {
+            "127.0.0.1": {
+                "hostname": "localhost",
+                "os_details": "N/A",
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    },
+                    "22": {
+                        "state": "closed",
+                        "name": "ssh",
+                        "product": "",
+                        "version": ""
+                    },
+                    "23": {
+                        "state": "closed",
+                        "name": "telnet",
+                        "product": "",
+                        "version": ""
+                    },
+                    "80": {
+                        "state": "closed",
+                        "name": "http",
+                        "product": "",
+                        "version": ""
+                    },
+                    "443": {
+                        "state": "closed",
+                        "name": "https",
+                        "product": "",
+                        "version": ""
+                    },
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scan_id": "20250811191222",
+        "target_ip": "127.0.0.1",
+        "timestamp": "2025-08-11T19:12:23.177817",
+        "scan_details": {
+            "127.0.0.1": {
+                "hostname": "localhost",
+                "os_details": "N/A",
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scan_id": "20250811191229",
+        "target_ip": "127.0.0.1",
+        "timestamp": "2025-08-11T19:12:30.835714",
+        "scan_details": {
+            "127.0.0.1": {
+                "hostname": "localhost",
+                "os_details": "N/A",
+                "ports": {
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scan_id": "20250811232632",
+        "target_ip": "127.0.0.1",
+        "timestamp": "2025-08-11T23:26:33.558322",
+        "scan_details": {
+            "127.0.0.1": {
+                "hostname": "localhost",
+                "os_details": "N/A",
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    },
+                    "22": {
+                        "state": "closed",
+                        "name": "ssh",
+                        "product": "",
+                        "version": ""
+                    },
+                    "23": {
+                        "state": "closed",
+                        "name": "telnet",
+                        "product": "",
+                        "version": ""
+                    },
+                    "80": {
+                        "state": "closed",
+                        "name": "http",
+                        "product": "",
+                        "version": ""
+                    },
+                    "443": {
+                        "state": "closed",
+                        "name": "https",
+                        "product": "",
+                        "version": ""
+                    },
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scan_id": "20250825182413",
+        "target_ip": "127.0.0.1",
+        "timestamp": "2025-08-25T18:24:15.784231",
+        "scan_details": {
+            "127.0.0.1": {
+                "hostname": "localhost",
+                "os_details": "N/A",
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    },
+                    "22": {
+                        "state": "closed",
+                        "name": "ssh",
+                        "product": "",
+                        "version": ""
+                    },
+                    "23": {
+                        "state": "closed",
+                        "name": "telnet",
+                        "product": "",
+                        "version": ""
+                    },
+                    "80": {
+                        "state": "closed",
+                        "name": "http",
+                        "product": "",
+                        "version": ""
+                    },
+                    "443": {
+                        "state": "closed",
+                        "name": "https",
+                        "product": "",
+                        "version": ""
+                    },
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scan_id": "20250831231024",
+        "target_ip": "127.0.0.1",
+        "timestamp": "2025-08-31T23:10:27.702578",
+        "scan_details": {
+            "127.0.0.1": {
+                "hostname": "localhost",
+                "os_details": "N/A",
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    },
+                    "22": {
+                        "state": "closed",
+                        "name": "ssh",
+                        "product": "",
+                        "version": ""
+                    },
+                    "23": {
+                        "state": "closed",
+                        "name": "telnet",
+                        "product": "",
+                        "version": ""
+                    },
+                    "80": {
+                        "state": "closed",
+                        "name": "http",
+                        "product": "",
+                        "version": ""
+                    },
+                    "443": {
+                        "state": "closed",
+                        "name": "https",
+                        "product": "",
+                        "version": ""
+                    },
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scan_id": "20250831235436",
+        "target_ip": "127.0.0.1",
+        "timestamp": "2025-08-31T23:54:37.216004",
+        "scan_details": {
+            "127.0.0.1": {
+                "hostname": "localhost",
+                "os_details": "N/A",
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    },
+                    "22": {
+                        "state": "closed",
+                        "name": "ssh",
+                        "product": "",
+                        "version": ""
+                    },
+                    "23": {
+                        "state": "closed",
+                        "name": "telnet",
+                        "product": "",
+                        "version": ""
+                    },
+                    "80": {
+                        "state": "closed",
+                        "name": "http",
+                        "product": "",
+                        "version": ""
+                    },
+                    "443": {
+                        "state": "closed",
+                        "name": "https",
+                        "product": "",
+                        "version": ""
+                    },
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scan_id": "20250902004733",
+        "target_ip": "127.0.0.1",
+        "ports_to_scan": [
+            21,
+            22,
+            80,
+            443,
+            8080
+        ],
+        "timestamp": "2025-09-02T00:47:35.780967",
+        "scan_details": {
+            "127.0.0.1": {
+                "hostname": "localhost",
+                "os_details": "N/A",
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    },
+                    "22": {
+                        "state": "closed",
+                        "name": "ssh",
+                        "product": "",
+                        "version": ""
+                    },
+                    "80": {
+                        "state": "closed",
+                        "name": "http",
+                        "product": "",
+                        "version": ""
+                    },
+                    "443": {
+                        "state": "closed",
+                        "name": "https",
+                        "product": "",
+                        "version": ""
+                    },
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scan_id": "20250902004908",
+        "target_ip": "127.0.0.",
+        "ports_to_scan": [
+            21,
+            22,
+            80,
+            443,
+            8080
+        ],
+        "timestamp": "2025-09-02T00:49:10.803995",
+        "scan_details": {}
+    },
+    {
+        "scan_id": "20250902010357",
+        "target_ip": "127.0.0.1",
+        "ports_to_scan": [
+            21,
+            22,
+            80,
+            443,
+            8080
+        ],
+        "timestamp": "2025-09-02T01:03:57.912938",
+        "scan_details": {
+            "127.0.0.1": {
+                "hostname": "localhost",
+                "os_details": "N/A",
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    },
+                    "22": {
+                        "state": "closed",
+                        "name": "ssh",
+                        "product": "",
+                        "version": ""
+                    },
+                    "80": {
+                        "state": "closed",
+                        "name": "http",
+                        "product": "",
+                        "version": ""
+                    },
+                    "443": {
+                        "state": "closed",
+                        "name": "https",
+                        "product": "",
+                        "version": ""
+                    },
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scan_id": "20250902010525",
+        "target_ip": "192.168.1.1",
+        "ports_to_scan": [
+            21,
+            22,
+            80,
+            443,
+            8080
+        ],
+        "timestamp": "2025-09-02T01:05:32.901545",
+        "scan_details": {}
+    },
+    {
+        "scan_id": "20250902010540",
+        "target_ip": "45.33.32.156",
+        "ports_to_scan": [
+            21,
+            22,
+            80,
+            443,
+            8080
+        ],
+        "timestamp": "2025-09-02T01:05:56.685395",
+        "scan_details": {
+            "45.33.32.156": {
+                "hostname": "scanme.nmap.org",
+                "os_details": "Linux 4.19 - 5.15",
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    },
+                    "22": {
+                        "state": "open",
+                        "name": "ssh",
+                        "product": "OpenSSH",
+                        "version": "6.6.1p1 Ubuntu 2ubuntu2.13"
+                    },
+                    "80": {
+                        "state": "open",
+                        "name": "http",
+                        "product": "Apache httpd",
+                        "version": "2.4.7"
+                    },
+                    "443": {
+                        "state": "closed",
+                        "name": "https",
+                        "product": "",
+                        "version": ""
+                    },
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scan_id": "20250902115038",
+        "target_ip": "45.33.32.156",
+        "ports_to_scan": [
+            21,
+            22,
+            80,
+            443,
+            8080
+        ],
+        "timestamp": "2025-09-02T11:50:58.047584",
+        "scan_details": {
+            "45.33.32.156": {
+                "hostname": "scanme.nmap.org",
+                "os_details": "Linux 4.19 - 5.15",
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    },
+                    "22": {
+                        "state": "open",
+                        "name": "ssh",
+                        "product": "OpenSSH",
+                        "version": "6.6.1p1 Ubuntu 2ubuntu2.13"
+                    },
+                    "80": {
+                        "state": "open",
+                        "name": "http",
+                        "product": "Apache httpd",
+                        "version": "2.4.7"
+                    },
+                    "443": {
+                        "state": "closed",
+                        "name": "https",
+                        "product": "",
+                        "version": ""
+                    },
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scan_id": "20250902120850",
+        "target_ip": "127.0.0.1",
+        "ports_to_scan": [
+            21,
+            22,
+            80,
+            443,
+            8080
+        ],
+        "timestamp": "2025-09-02T12:08:51.791990",
+        "scan_details": {
+            "127.0.0.1": {
+                "hostname": "localhost",
+                "os_details": "N/A",
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    },
+                    "22": {
+                        "state": "closed",
+                        "name": "ssh",
+                        "product": "",
+                        "version": ""
+                    },
+                    "80": {
+                        "state": "closed",
+                        "name": "http",
+                        "product": "",
+                        "version": ""
+                    },
+                    "443": {
+                        "state": "closed",
+                        "name": "https",
+                        "product": "",
+                        "version": ""
+                    },
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scan_id": "20250902122657",
+        "target_ip": "45.33.32.156",
+        "ports_to_scan": [
+            21,
+            22,
+            80,
+            443,
+            8080
+        ],
+        "timestamp": "2025-09-02T12:26:57.983741",
+        "scan_details": {}
+    },
+    {
+        "scan_id": "20250902122718",
+        "target_ip": "45.33.32.156",
+        "ports_to_scan": [
+            21,
+            22,
+            80,
+            443,
+            8080
+        ],
+        "timestamp": "2025-09-02T12:27:33.427647",
+        "scan_details": {
+            "45.33.32.156": {
+                "hostname": "scanme.nmap.org",
+                "os_details": "Linux 4.19 - 5.15",
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    },
+                    "22": {
+                        "state": "open",
+                        "name": "ssh",
+                        "product": "OpenSSH",
+                        "version": "6.6.1p1 Ubuntu 2ubuntu2.13"
+                    },
+                    "80": {
+                        "state": "open",
+                        "name": "http",
+                        "product": "Apache httpd",
+                        "version": "2.4.7"
+                    },
+                    "443": {
+                        "state": "closed",
+                        "name": "https",
+                        "product": "",
+                        "version": ""
+                    },
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scan_id": "20250902125928",
+        "target_ip": "127.0.0.1",
+        "ports_to_scan": [
+            21,
+            22,
+            80,
+            443,
+            8080
+        ],
+        "timestamp": "2025-09-02T12:59:28.989836",
+        "scan_details": {
+            "127.0.0.1": {
+                "hostname": "localhost",
+                "os_details": "N/A",
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    },
+                    "22": {
+                        "state": "closed",
+                        "name": "ssh",
+                        "product": "",
+                        "version": ""
+                    },
+                    "80": {
+                        "state": "closed",
+                        "name": "http",
+                        "product": "",
+                        "version": ""
+                    },
+                    "443": {
+                        "state": "closed",
+                        "name": "https",
+                        "product": "",
+                        "version": ""
+                    },
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scan_id": "20250902125935",
+        "target_ip": "45.33.32.156",
+        "ports_to_scan": [
+            21,
+            22,
+            80,
+            443,
+            8080
+        ],
+        "timestamp": "2025-09-02T12:59:42.838337",
+        "scan_details": {}
+    },
+    {
+        "scan_id": "20250902125959",
+        "target_ip": "45.33.32.156",
+        "ports_to_scan": [
+            21,
+            22,
+            80,
+            443,
+            8080
+        ],
+        "timestamp": "2025-09-02T13:00:14.609155",
+        "scan_details": {
+            "45.33.32.156": {
+                "hostname": "scanme.nmap.org",
+                "os_details": "Linux 4.19 - 5.15",
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    },
+                    "22": {
+                        "state": "open",
+                        "name": "ssh",
+                        "product": "OpenSSH",
+                        "version": "6.6.1p1 Ubuntu 2ubuntu2.13"
+                    },
+                    "80": {
+                        "state": "open",
+                        "name": "http",
+                        "product": "Apache httpd",
+                        "version": "2.4.7"
+                    },
+                    "443": {
+                        "state": "closed",
+                        "name": "https",
+                        "product": "",
+                        "version": ""
+                    },
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scan_id": "20250903122609",
+        "target_ip": "127.0.0.1",
+        "ports_to_scan": [
+            21,
+            22,
+            80,
+            443,
+            8080
+        ],
+        "timestamp": "2025-09-03T12:26:12.720569",
+        "scan_details": {
+            "127.0.0.1": {
+                "hostname": "localhost",
+                "os_details": "N/A",
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    },
+                    "22": {
+                        "state": "closed",
+                        "name": "ssh",
+                        "product": "",
+                        "version": ""
+                    },
+                    "80": {
+                        "state": "closed",
+                        "name": "http",
+                        "product": "",
+                        "version": ""
+                    },
+                    "443": {
+                        "state": "closed",
+                        "name": "https",
+                        "product": "",
+                        "version": ""
+                    },
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scan_id": "20250903122623",
+        "target_ip": "45.33.32.156",
+        "ports_to_scan": [
+            21,
+            22,
+            80,
+            443,
+            8080
+        ],
+        "timestamp": "2025-09-03T12:26:38.171925",
+        "scan_details": {
+            "45.33.32.156": {
+                "hostname": "scanme.nmap.org",
+                "os_details": "Linux 4.19 - 5.15",
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    },
+                    "22": {
+                        "state": "open",
+                        "name": "ssh",
+                        "product": "OpenSSH",
+                        "version": "6.6.1p1 Ubuntu 2ubuntu2.13"
+                    },
+                    "80": {
+                        "state": "open",
+                        "name": "http",
+                        "product": "Apache httpd",
+                        "version": "2.4.7"
+                    },
+                    "443": {
+                        "state": "closed",
+                        "name": "https",
+                        "product": "",
+                        "version": ""
+                    },
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scan_id": "20250903150847",
+        "target_ip": "127.0.0.1",
+        "ports_to_scan": [
+            21,
+            22,
+            80,
+            443,
+            8080
+        ],
+        "timestamp": "2025-09-03T15:08:48.678333",
+        "scan_details": {
+            "127.0.0.1": {
+                "hostname": "localhost",
+                "os_details": "N/A",
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    },
+                    "22": {
+                        "state": "closed",
+                        "name": "ssh",
+                        "product": "",
+                        "version": ""
+                    },
+                    "80": {
+                        "state": "closed",
+                        "name": "http",
+                        "product": "",
+                        "version": ""
+                    },
+                    "443": {
+                        "state": "closed",
+                        "name": "https",
+                        "product": "",
+                        "version": ""
+                    },
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scan_id": "20250903150900",
+        "target_ip": "192.168.1.1",
+        "ports_to_scan": [
+            21,
+            22,
+            80,
+            443,
+            8080
+        ],
+        "timestamp": "2025-09-03T15:09:07.084935",
+        "scan_details": {}
+    },
+    {
+        "scan_id": "20250903150918",
+        "target_ip": "45.33.32.156",
+        "ports_to_scan": [
+            21,
+            22,
+            80,
+            443,
+            8080
+        ],
+        "timestamp": "2025-09-03T15:09:27.318521",
+        "scan_details": {
+            "45.33.32.156": {
+                "hostname": "scanme.nmap.org",
+                "os_details": "Linux 4.19 - 5.15",
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    },
+                    "22": {
+                        "state": "open",
+                        "name": "ssh",
+                        "product": "OpenSSH",
+                        "version": "6.6.1p1 Ubuntu 2ubuntu2.13"
+                    },
+                    "80": {
+                        "state": "filtered",
+                        "name": "http",
+                        "product": "",
+                        "version": ""
+                    },
+                    "443": {
+                        "state": "closed",
+                        "name": "https",
+                        "product": "",
+                        "version": ""
+                    },
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scan_id": "20250903152509",
+        "target_ip": "127.0.0.1",
+        "ports_to_scan": [
+            21,
+            22,
+            80,
+            443,
+            8080
+        ],
+        "timestamp": "2025-09-03T15:25:12.220083",
+        "scan_details": {
+            "127.0.0.1": {
+                "hostname": "localhost",
+                "os_details": "N/A",
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    },
+                    "22": {
+                        "state": "closed",
+                        "name": "ssh",
+                        "product": "",
+                        "version": ""
+                    },
+                    "80": {
+                        "state": "closed",
+                        "name": "http",
+                        "product": "",
+                        "version": ""
+                    },
+                    "443": {
+                        "state": "closed",
+                        "name": "https",
+                        "product": "",
+                        "version": ""
+                    },
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scan_id": "20250903225624",
+        "target_ip": "45.33.32.156",
+        "ports_to_scan": [
+            21,
+            22,
+            80,
+            443,
+            8080
+        ],
+        "timestamp": "2025-09-03T22:56:45.374438",
+        "scan_details": {
+            "45.33.32.156": {
+                "hostname": "scanme.nmap.org",
+                "os_details": "Linux 4.19 - 5.15",
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    },
+                    "22": {
+                        "state": "open",
+                        "name": "ssh",
+                        "product": "OpenSSH",
+                        "version": "6.6.1p1 Ubuntu 2ubuntu2.13"
+                    },
+                    "80": {
+                        "state": "open",
+                        "name": "http",
+                        "product": "Apache httpd",
+                        "version": "2.4.7"
+                    },
+                    "443": {
+                        "state": "closed",
+                        "name": "https",
+                        "product": "",
+                        "version": ""
+                    },
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
     }
 ]
