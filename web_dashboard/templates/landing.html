@@ -1,57 +1,159 @@
 {% extends "base.html" %}
 
-{% block title %}Welcome - AI Network Penetrator{% endblock %}
+{% block title %}ARGUS - AI Network Security{% endblock %}
 
 {% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-transparent py-3 position-fixed top-0 start-0 w-100" style="z-index: 100;">
+    <div class="container">
+        <a class="navbar-brand logo" href="{{ url_for('landing') }}">
+            ARGUS
+        </a>
+        <ul class="navbar-nav ms-auto flex-row align-items-center">
+            <li class="nav-item d-none d-lg-block"><a class="nav-link me-3" href="#features">Features</a></li>
+            <li class="nav-item d-none d-lg-block"><a class="nav-link me-3" href="#contact">Contact</a></li>
+            <li class="nav-item">
+                <button class="btn btn-gradient ms-3" data-bs-toggle="modal" data-bs-target="#authModal">Login / Sign Up</button>
+            </li>
+        </ul>
+    </div>
+</nav>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
-      <div class="container">
-        <a class="navbar-brand fw-bold" href="#">💾 AI Network Penetrator</a>
-        <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#authModal">
-          Login / Sign Up
-        </button>
-      </div>
-    </nav>
-
-    <div class="container text-center" style="padding: 100px 0;">
-      <h1 class="display-4 fw-bold">AI-Powered Network Security Scanner</h1>
-      <p class="lead col-md-8 mx-auto">
-        Intelligently identify vulnerabilities, analyze scan results, and secure your network with our advanced penetration testing tool.
-      </p>
-      <button class="btn btn-primary btn-lg mt-3" data-bs-toggle="modal" data-bs-target="#authModal">
-        Get Started
-      </button>
+<header class="hero-section">
+    <div class="spline-background-container">
+        <div class="spline-overlay"></div>
+        <spline-viewer id="spline-scene" url="https://prod.spline.design/kKPei8uocWLqMUSh/scene.splinecode"></spline-viewer>
     </div>
 
-    <div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Welcome</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <p class="text-center text-body-secondary">Sign in quickly using a provider:</p>
-            <div class="d-grid gap-2">
-              <a href="/login/google" class="btn btn-outline-secondary text-start"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" width="20" class="me-2" alt="Google Logo"> Continue with Google</a>
-              <a href="/login/microsoft" class="btn btn-outline-secondary text-start"><img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" width="20" class="me-2" alt="Microsoft Logo"> Continue with Microsoft</a>
-              <a href="/login/apple" class="btn btn-outline-secondary text-start"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" width="20" class="me-2" alt="Apple Logo"> Continue with Apple</a>
+    <div class="container hero-content-container">
+        <button class="btn btn-gradient btn-lg" data-bs-toggle="modal" data-bs-target="#authModal"> Get Started</button>
+    </div>
+</header>
+
+<div class="container page-container">
+    <section id="features" class="features-section fade-in-section">
+        <h2 class="text-center mb-5 fw-bold">Why Choose ARGUS?</h2>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="bi bi-cpu-fill"></i></div>
+                    <h4 class="fw-bold mb-3">AI-Powered Scanning</h4>
+                    <p class="text-secondary">Automated detection of complex vulnerabilities with a sophisticated machine learning intelligence.</p>
+                </div>
             </div>
-            
-            <hr>
-            
-            <p class="text-center text-body-secondary">Or use your email and password</p>
-            <form action="{{ url_for('handle_login') }}" method="POST">
-              <div class="mb-3">
-                <input type="email" class="form-control" name="email" placeholder="Email address" required>
-              </div>
-              <div class="mb-3">
-                <input type="password" class="form-control" name="password" placeholder="Password" required>
-              </div>
-              <button type="submit" class="btn btn-primary w-100">Login</button>
-            </form>
-          </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="bi bi-file-earmark-text-fill"></i></div>
+                    <h4 class="fw-bold mb-3">In-Depth Reports</h4>
+                    <p class="text-secondary">Generate security analysis reports that provide clear, actionable insights for prioritizing fixes.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mx-auto">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="bi bi-shield-lock-fill"></i></div>
+                    <h4 class="fw-bold mb-3">Secure & Reliable</h4>
+                    <p class="text-secondary">Your data is protected with enterprise-grade encryption and privacy safeguards.</p>
+                </div>
+            </div>
         </div>
-      </div>
+    </section>
+
+    <section class="logo-cloud-section fade-in-section">
+        <div class="text-center text-secondary mb-4">Powered by a Modern Tech Stack</div>
+        <div class="logo-marquee">
+            <div class="logo-slide">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python Logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Flask_logo.svg" alt="Flask Logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Nmap_logo.svg" alt="Nmap Logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png" alt="JavaScript Logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b2/Bootstrap_logo.svg" alt="Bootstrap Logo">
+                <img src="https://www.gstatic.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" style="height: 30px;" alt="Google Gemini Logo">
+            </div>
+            <div class="logo-slide">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python Logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Flask_logo.svg" alt="Flask Logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Nmap_logo.svg" alt="Nmap Logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png" alt="JavaScript Logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b2/Bootstrap_logo.svg" alt="Bootstrap Logo">
+                <img src="https://www.gstatic.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" style="height: 30px;" alt="Google Gemini Logo">
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section text-center fade-in-section">
+       <h2 class="fw-bold">Get in Touch</h2>
+         <p class="text-secondary fs-5 my-3">Have questions about ARGUS? Reach out to us.</p>
+         <a href="mailto:contact@argus-security.com" class="btn btn-gradient mt-3">📧 Contact Us</a>
+    </section>
+</div>
+
+<footer class="text-center">
+    <div class="container">
+         &copy; 2025 ARGUS. All Rights Reserved.
     </div>
+</footer>
+
+<div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title">Welcome to ARGUS</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-pills nav-fill mb-4" id="authTabs" role="tablist">
+                    <li class="nav-item" role="presentation"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#login" type="button">Login</button></li>
+                    <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#signup" type="button">Sign Up</button></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="login" role="tabpanel">
+                        <form action="{{ url_for('handle_login') }}" method="POST">
+                            <div class="mb-3"><input type="email" name="email" class="form-control" placeholder="Email Address" required></div>
+                            <div class="mb-3"><input type="password" name="password" class="form-control" placeholder="Password" required></div>
+                            <button type="submit" class="btn btn-gradient w-100">Login</button>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="signup" role="tabpanel">
+                        <form action="{{ url_for('signup') }}" method="POST">
+                            <div class="mb-3"><input type="text" name="name" class="form-control" placeholder="Full Name" required></div>
+                            <div class="mb-3"><input type="email" name="email" class="form-control" placeholder="Email Address" required></div>
+                            <div class="mb-3"><input type="password" name="password" class="form-control" placeholder="Create Password" required></div>
+                            <button type="submit" class="btn btn-gradient w-100">Create Account</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.64/build/spline-viewer.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const splineScene = document.getElementById('spline-scene');
+        if(splineScene) {
+            splineScene.addEventListener('load', (e) => {
+                const shadow = e.target.shadowRoot;
+                if (shadow) {
+                    const elementsToHide = shadow.querySelectorAll('a, #logo');
+                    elementsToHide.forEach(el => {
+                        el.style.display = 'none';
+                    });
+                }
+            });
+        }
+
+        const sections = document.querySelectorAll('.fade-in-section');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        sections.forEach(section => { observer.observe(section); });
+    });
+</script>
 {% endblock %}
