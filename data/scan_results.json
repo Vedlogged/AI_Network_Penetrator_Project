@@ -2533,5 +2533,83 @@
                 }
             }
         }
+    },
+    {
+        "scan_id": "20251010131910",
+        "target_ip": "45.33.32.156",
+        "ports_to_scan": [
+            21,
+            22,
+            23,
+            53,
+            80,
+            443,
+            3306,
+            3389,
+            8080
+        ],
+        "timestamp": "2025-10-10T13:19:25.703670",
+        "scan_details": {
+            "45.33.32.156": {
+                "hostname": "scanme.nmap.org",
+                "os_details": "Linux 4.19 - 5.15",
+                "ports": {
+                    "21": {
+                        "state": "closed",
+                        "name": "ftp",
+                        "product": "",
+                        "version": ""
+                    },
+                    "22": {
+                        "state": "open",
+                        "name": "ssh",
+                        "product": "OpenSSH",
+                        "version": "6.6.1p1 Ubuntu 2ubuntu2.13"
+                    },
+                    "23": {
+                        "state": "closed",
+                        "name": "telnet",
+                        "product": "",
+                        "version": ""
+                    },
+                    "53": {
+                        "state": "closed",
+                        "name": "domain",
+                        "product": "",
+                        "version": ""
+                    },
+                    "80": {
+                        "state": "open",
+                        "name": "http",
+                        "product": "Apache httpd",
+                        "version": "2.4.7"
+                    },
+                    "443": {
+                        "state": "closed",
+                        "name": "https",
+                        "product": "",
+                        "version": ""
+                    },
+                    "3306": {
+                        "state": "closed",
+                        "name": "mysql",
+                        "product": "",
+                        "version": ""
+                    },
+                    "3389": {
+                        "state": "closed",
+                        "name": "ms-wbt-server",
+                        "product": "",
+                        "version": ""
+                    },
+                    "8080": {
+                        "state": "closed",
+                        "name": "http-proxy",
+                        "product": "",
+                        "version": ""
+                    }
+                }
+            }
+        }
     }
 ]
