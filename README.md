@@ -1,5 +1,4 @@
 # AI Network Penetrator Project (ARGUS)
-[![Ask DeepWiki](https://devin.ai/assets/askdeepwiki.png)](https://deepwiki.com/Vedlogged/AI_Network_Penetrator_Project)
 
 ARGUS is an AI-assisted penetration testing tool designed to analyze network security. This functional prototype integrates automated network scanning with AI-based threat detection, presented through a user-friendly web dashboard. It is designed to identify vulnerabilities, analyze potential threats, and provide actionable mitigation steps.
 
