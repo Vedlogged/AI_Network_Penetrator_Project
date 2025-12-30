@@ -70,19 +70,19 @@
             <h1>ARGUS AI Security Report</h1>
         </div>
 
-        <h2>Scan Summary</h2>
+                <h2>Scan Summary</h2>
         <table class="summary-table">
             <tr>
                 <th>Scan Target</th>
-                <td>{{ latest_scan.target_ip }}</td>
+                <td>{{ primary_host or latest_scan.target or 'Unknown' }}</td>
             </tr>
             <tr>
                 <th>Hostname</th>
-                <td>{{ latest_scan.scan_details[latest_scan.target_ip].hostname }}</td>
+                <td>{{ primary_host_details.hostname|default('N/A') if primary_host_details else 'N/A' }}</td>
             </tr>
             <tr>
                 <th>Operating System</th>
-                <td>{{ latest_scan.scan_details[latest_scan.target_ip].os_details }}</td>
+                <td>{{ primary_host_details.os_details|default('N/A') if primary_host_details else 'N/A' }}</td>
             </tr>
             <tr>
                 <th>Scan Timestamp</th>
@@ -93,7 +93,6 @@
                 <td><strong>{{ analysis.risk_level }}</strong></td>
             </tr>
         </table>
-
         <h2>Detailed Findings</h2>
         {% if analysis.findings %}
             {% for finding in analysis.findings %}

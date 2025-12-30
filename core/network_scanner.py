@@ -1,95 +1,128 @@
-import nmap
-import socket
-import json
-import os
+import subprocess
+import uuid
 from datetime import datetime
+import xml.etree.ElementTree as ET
 
-SCAN_RESULTS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../data/scan_results.json')
 
 def run_nmap_scan(target_ip, ports_to_scan):
     """
-    Runs a detailed Nmap scan and saves the results safely to a JSON file.
-    Returns the scan results dictionary or None if a critical error occurs.
+    Executes Nmap scan using subprocess for maximum compatibility on Windows.
+    Returns structured scan data or None if scan fails.
     """
+
     try:
-        scan_id = datetime.now().strftime("%Y%m%d%H%M%S")
-        nmap_scanner = nmap.PortScanner()
-        ports_str = ','.join(map(str, ports_to_scan))
+        scan_id = str(uuid.uuid4())
+        port_str = ",".join(map(str, ports_to_scan))
 
-        print(f"[Nmap Scanner] Starting detailed scan on {target_ip} for ports {ports_str}...")
-        
-        # **CHANGE**: Added '-Pn' to skip host discovery (ping check). This is the main fix.
-        # This forces Nmap to scan the ports even if the host appears to be offline.
-        arguments = '-sV -O -T4 -Pn'
-        nmap_scanner.scan(target_ip, ports=ports_str, arguments=arguments)
+        # Nmap Command
+        command = [
+            "nmap",
+            "-sV",         # Service and version detection
+            "-T4",         # Faster execution
+            "-Pn",         # Skip host discovery (important for firewalled hosts)
+            "-oX", "-",    # Output as XML to stdout
+            "-p", port_str,
+            target_ip
+        ]
 
-        scan_results = {
+        print(f"[Scanner] Running command: {' '.join(command)}")
+        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, timeout=120)
+
+        if result.returncode != 0 or not result.stdout:
+            print(f"[Scanner Error] {result.stderr}")
+            return None
+
+        # Parse XML output
+        try:
+            root = ET.fromstring(result.stdout)
+            scan_details = parse_nmap_xml(root, target_ip)
+        except ET.ParseError as e:
+            print(f"[Scanner] XML Parse Error: {e}")
+            return None
+
+        # Return formatted scan results
+        return {
             "scan_id": scan_id,
-            "target_ip": target_ip,
-            "ports_to_scan": ports_to_scan,
-            "timestamp": datetime.now().isoformat(),
-            "scan_details": {}
+            "target": target_ip,
+            "timestamp": datetime.utcnow(),
+            "scan_details": scan_details
         }
 
-        if target_ip in nmap_scanner.all_hosts():
-            host = target_ip
-            scan_details_host = {}
-
-            # Safely get hostname
-            hostnames = nmap_scanner[host].get('hostnames', [])
-            scan_details_host['hostname'] = hostnames[0]['name'] if hostnames else 'N/A'
-
-            # Safely get OS details
-            os_matches = nmap_scanner[host].get('osmatch', [])
-            scan_details_host['os_details'] = os_matches[0]['name'] if os_matches else 'N/A'
-            
-            scan_details_host['ports'] = {}
-            
-            if 'tcp' in nmap_scanner[host]:
-                for port, port_info in nmap_scanner[host]['tcp'].items():
-                    scan_details_host['ports'][port] = {
-                        "state": port_info.get('state', 'N/A'),
-                        "name": port_info.get('name', 'N/A'),
-                        "product": port_info.get('product', 'N/A'),
-                        "version": port_info.get('version', 'N/A')
-                    }
-            
-            scan_results["scan_details"][host] = scan_details_host
-        else:
-            print(f"[Nmap Scanner] Target host {target_ip} not found in scan results (may be down or firewalled).")
-
-        all_scans = []
-        if os.path.exists(SCAN_RESULTS_FILE) and os.path.getsize(SCAN_RESULTS_FILE) > 0:
-            try:
-                with open(SCAN_RESULTS_FILE, 'r') as f:
-                    all_scans = json.load(f)
-            except json.JSONDecodeError:
-                print("[Nmap Scanner] Warning: Existing scan_results.json is corrupt. Starting fresh.")
-
-        all_scans.append(scan_results)
-
-        with open(SCAN_RESULTS_FILE, 'w') as f:
-            json.dump(all_scans, f, indent=4)
-
-        print(f"[Nmap Scanner] Scan completed. Results saved to {SCAN_RESULTS_FILE}")
-        return scan_results
-        
-    except nmap.PortScannerError:
-        print("[Nmap Scanner] CRITICAL ERROR: Nmap not found. Please install it and ensure it's in your system's PATH.")
+    except subprocess.TimeoutExpired:
+        print("[Scanner] Scan timeout")
         return None
     except Exception as e:
-        print(f"[Nmap Scanner] An unexpected error occurred: {e}")
+        print(f"[Scanner] Unexpected error: {e}")
         return None
 
-# This block is for direct testing
-if __name__ == "__main__":
-    print("Running network_scanner.py directly for testing...")
-    test_ip = "127.0.0.1" 
-    test_ports = [22, 80, 443, 8080]
 
-    results = run_nmap_scan(test_ip, test_ports)
-    if results:
-        print("\n--- Test Nmap Scan Results ---")
-        print(json.dumps(results, indent=4))
+def parse_nmap_xml(root, target_ip):
+    """
+    Parses Nmap XML output into a structured dictionary matching the expected format.
+    Returns: {target_ip: {ports: {port_num: {name, version, state}}, hostname, os_details}}
+    """
+    scan_details = {}
+    
+    # Extract host information
+    for host in root.findall('host'):
+        host_data = {
+            "ports": {},
+            "hostname": "N/A",
+            "os_details": "N/A"
+        }
+
+        # Extract hostname
+        for address in host.findall('hostnames/hostname'):
+            host_data["hostname"] = address.get('name', 'N/A')
+            break
+
+        # Extract OS information
+        for osmatch in host.findall('os/osmatch'):
+            host_data["os_details"] = osmatch.get('name', 'N/A')
+            break
+
+        # Extract port information
+        for port in host.findall('ports/port'):
+            port_num = port.get('portid', 'unknown')
+            port_state = port.find('state')
+            service = port.find('service')
+
+            port_data = {
+                "state": port_state.get('state', 'unknown') if port_state is not None else 'unknown',
+                "name": service.get('name', 'unknown') if service is not None else 'unknown',
+                "version": service.get('product', '') if service is not None else ''
+            }
+
+            if service is not None and service.get('extrainfo'):
+                port_data['extrainfo'] = service.get('extrainfo')
+
+            host_data["ports"][port_num] = port_data
+
+        # Use the target IP as the key (or the actual host address if available)
+        address_elem = host.find('address')
+        host_ip = address_elem.get('addr') if address_elem is not None else target_ip
+        
+        scan_details[host_ip] = host_data
+
+    # If no hosts were found, create an empty entry
+    if not scan_details:
+        scan_details[target_ip] = {
+            "ports": {},
+            "hostname": "N/A",
+            "os_details": "N/A"
+        }
+
+    return scan_details
+
+
+if __name__ == "__main__":
+    # Local test run
+    test_ip = "scanme.nmap.org"
+    test_ports = [22, 80, 443, 9929, 31337]
+    print("Testing local Nmap scan...")
+    response = run_nmap_scan(test_ip, test_ports)
+    if response:
+        print("SUCCESS")
+        print(response)
     else:
-        print("\n--- Test Nmap Scan Failed ---")
+        print("FAILED")
