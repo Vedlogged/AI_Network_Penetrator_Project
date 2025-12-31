@@ -3,3 +3,4 @@ Flask-PyMongo
 Flask-Login
 Werkzeug
 python-dotenv
+gunicorn
